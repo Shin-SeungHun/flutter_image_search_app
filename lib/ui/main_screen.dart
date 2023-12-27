@@ -42,20 +42,20 @@ class _MainScreenState extends State<MainScreen> {
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       width: 2,
                       color: Colors.green,
                     ),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(width: 2, color: Colors.green),
+                    borderSide: const BorderSide(width: 2, color: Colors.green),
                   ),
                   labelText: '검색',
                   suffixIcon: IconButton(
                     onPressed: () =>
                         searchImage(searchTextEditingController.text),
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.search,
                       color: Colors.cyan,
                     ),
