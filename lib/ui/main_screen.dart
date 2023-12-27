@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:image_search_app/ui/widget/image_item_widget.dart';
 
+import '../data/model/image_item.dart';
+import '../data/repository/image_item_repository.dart';
+
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
@@ -9,6 +12,23 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final TextEditingController searchTextEditingController =
+      TextEditingController();
+  List<ImageItem> imageItems = [];
+  final PixabayImageItemRepository repository = PixabayImageItemRepository();
+
+  @override
+  void dispose() {
+    searchTextEditingController.dispose();
+    super.dispose();
+  }
+
+  Future<void> searchImage(String query) async {
+    imageItems = await repository.getImageItems(query);
+    setState(() {});
+    print(imageItems);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +38,7 @@ class _MainScreenState extends State<MainScreen> {
           child: Column(
             children: [
               TextField(
+                controller: searchTextEditingController,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
@@ -32,7 +53,8 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                   labelText: '검색',
                   suffixIcon: IconButton(
-                    onPressed: null,
+                    onPressed: () =>
+                        searchImage(searchTextEditingController.text),
                     icon: Icon(
                       Icons.search,
                       color: Colors.cyan,
@@ -41,7 +63,6 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
               const SizedBox(height: 24),
-
             ],
           ),
         ),
