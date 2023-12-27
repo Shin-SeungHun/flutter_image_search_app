@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_search_app/ui/widget/image_item_widget.dart';
-
 import '../data/model/image_item.dart';
-import '../data/repository/image_item_repository.dart';
+import '../data/repository/pixabay_image_item_repository.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -29,7 +28,7 @@ class _MainScreenState extends State<MainScreen> {
     setState(() {
       isLoading = false;
     });
-    print(imageItems);
+    // print(imageItems);
   }
 
   @override
