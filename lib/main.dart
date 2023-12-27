@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_search_app/ui/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,18 +20,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
-
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold();
-  }
-}
-
