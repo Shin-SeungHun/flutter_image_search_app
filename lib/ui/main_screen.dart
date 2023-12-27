@@ -16,17 +16,26 @@ class _MainScreenState extends State<MainScreen> {
       TextEditingController();
   List<ImageItem> imageItems = [];
   final PixabayImageItemRepository repository = PixabayImageItemRepository();
+  bool isLoading = false;
+
+  Future<void> searchImage(String query) async {
+    setState(() {
+      isLoading = true;
+    });
+
+    imageItems = await repository.getImageItems(query);
+
+    // 강제 UI 업데이트
+    setState(() {
+      isLoading = false;
+    });
+    print(imageItems);
+  }
 
   @override
   void dispose() {
     searchTextEditingController.dispose();
     super.dispose();
-  }
-
-  Future<void> searchImage(String query) async {
-    imageItems = await repository.getImageItems(query);
-    setState(() {});
-    print(imageItems);
   }
 
   @override
@@ -63,6 +72,22 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
               const SizedBox(height: 24),
+              isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  :Expanded(
+                child: GridView.builder(
+                  itemCount: imageItems.length,
+                  itemBuilder: (context, index) {
+                    final imageItem = imageItems[index];
+                    return ImageItemWidget(imageItem: imageItem);
+                  },
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 32,
+                    mainAxisSpacing: 32,
+                  ),
+                ),
+              )
             ],
           ),
         ),
